@@ -19,7 +19,7 @@ namespace Tutorial8.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateClient([FromBody] ClientDTO dto)
         {
-            if (string.IsNullOrEmpty(dto.Name) || string.IsNullOrEmpty(dto.Pesel))
+            if (string.IsNullOrEmpty(dto.FirstName) || string.IsNullOrEmpty(dto.Pesel))
                 return BadRequest("Missing required fields.");
     
             var id = await _clientsService.CreateClient(dto);
