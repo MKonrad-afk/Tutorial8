@@ -25,13 +25,5 @@ namespace Tutorial8.Controllers
 
 
 
-        [HttpDelete("{id}/trips/{tripId}")]
-        public async Task<IActionResult> RemoveClientFromTrip(int id, int tripId)
-        {
-            var result = await _tripsService.RemoveClientFromTrip(id, tripId);
-            if (!result)
-                return NotFound("No registration found for this client and trip.");
-            return Ok("Client unregistered from trip.");
-        }
     }
 }

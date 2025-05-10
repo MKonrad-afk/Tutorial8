@@ -66,18 +66,5 @@ public class TripsService : ITripsService
     }
 
 
-    public async Task<bool> RemoveClientFromTrip(int clientId, int tripId)
-    {
-        string sql = "DELETE FROM Client_Trip WHERE IdClient=@cid AND IdTrip=@tid";
 
-        using (var conn = new SqlConnection(_connectionString))
-        using (var cmd = new SqlCommand(sql, conn))
-        {
-            cmd.Parameters.AddWithValue("@cid", clientId);
-            cmd.Parameters.AddWithValue("@tid", tripId);
-            await conn.OpenAsync();
-            int rows = await cmd.ExecuteNonQueryAsync();
-            return rows > 0;
-        }
-    }
 }

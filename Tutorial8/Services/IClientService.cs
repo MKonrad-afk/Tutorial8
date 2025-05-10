@@ -9,5 +9,6 @@ namespace Tutorial8.Services
         Task<int> CreateClient(ClientDTO dto);
         Task<List<ClientTripDTO>> GetClientTrips(int clientId);
         Task<bool> RegisterClientToTrip(int clientId, int tripId);
+        Task<bool> RemoveClientFromTrip(int clientId, int tripId);
     }
 }
