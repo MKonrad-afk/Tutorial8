@@ -61,5 +61,40 @@ namespace Tutorial8.Services
 
             return trips;
         }
+        
+        public async Task<bool> RegisterClientToTrip(int clientId, int tripId)
+        {
+            string checkSql = "SELECT COUNT(*) FROM Client_Trip WHERE IdClient=@cid AND IdTrip=@tid";
+            string insertSql = "INSERT INTO Client_Trip (IdClient, IdTrip, RegisteredAt) VALUES (@cid, @tid, @reg)";
+
+            int todayInt = int.Parse(DateTime.Today.ToString("yyyyMMdd"));
+
+            using (var conn = new SqlConnection(_connectionString))
+            {
+                await conn.OpenAsync();
+
+                using (var check = new SqlCommand(checkSql, conn))
+                {
+                    check.Parameters.AddWithValue("@cid", clientId);
+                    check.Parameters.AddWithValue("@tid", tripId);
+
+                    int count = (int)await check.ExecuteScalarAsync();
+                    if (count > 0)
+                        return false;
+                }
+
+                using (var insert = new SqlCommand(insertSql, conn))
+                {
+                    insert.Parameters.AddWithValue("@cid", clientId);
+                    insert.Parameters.AddWithValue("@tid", tripId);
+                    insert.Parameters.AddWithValue("@reg", todayInt);
+                    await insert.ExecuteNonQueryAsync();
+                }
+            }
+
+            return true;
+        }
+
+        
     }
 }

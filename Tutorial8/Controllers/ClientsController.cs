@@ -34,6 +34,17 @@ namespace Tutorial8.Controllers
                 return NotFound($"No trips found for client ID {id}.");
             return Ok(trips);
         }
+        
+        
+        [HttpPut("{id}/trips/{tripId}")]
+        public async Task<IActionResult> RegisterClientToTrip(int id, int tripId)
+        {
+            var success = await _clientsService.RegisterClientToTrip(id, tripId);
+            if (!success)
+                return Conflict("Client already registered or invalid IDs.");
+
+            return Ok("Client registered to trip.");
+        }
     }
  
 }

@@ -23,15 +23,7 @@ namespace Tutorial8.Controllers
             return Ok(trips);
         }
 
-        [HttpPut("{id}/trips/{tripId}")]
-        public async Task<IActionResult> RegisterClientToTrip(int id, int tripId)
-        {
-            var success = await _tripsService.RegisterClientToTrip(id, tripId);
-            if (!success)
-                return Conflict("Client already registered or invalid IDs.");
 
-            return Ok("Client registered to trip.");
-        }
 
         [HttpDelete("{id}/trips/{tripId}")]
         public async Task<IActionResult> RemoveClientFromTrip(int id, int tripId)
